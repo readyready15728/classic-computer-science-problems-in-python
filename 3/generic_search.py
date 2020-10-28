@@ -23,6 +23,7 @@ def binary_contains(sequence, key):
 
     return True
 
-print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5)) # True
-print(binary_contains(["a", "d", "e", "f", "z"], "f")) # True
-print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila")) #False
+if __name__ == 'main':
+    print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5)) # True
+    print(binary_contains(["a", "d", "e", "f", "z"], "f")) # True
+    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila")) #False
