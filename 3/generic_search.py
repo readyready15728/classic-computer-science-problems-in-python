@@ -21,9 +21,26 @@ def binary_contains(sequence, key):
         else:
             return True
 
-    return True
+    return False
 
-if __name__ == 'main':
+class Stack:
+    def __init__(self):
+        self._container = []
+
+    @property
+    def empty(self):
+        return not self._container
+
+    def push(self, item):
+        self._container.append(item)
+
+    def pop(self):
+        return self._container.pop()
+
+    def __repr__(self):
+        return repr(self._container)
+
+if __name__ == '__main__':
     print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5)) # True
     print(binary_contains(["a", "d", "e", "f", "z"], "f")) # True
-    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila")) #False
+    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila")) # False
