@@ -50,7 +50,33 @@ class Node:
     def __lt__(self, other):
         return (self.cost + self.heuristic) < (other.cost + other.heuristic)
 
-if __name__ == '__main__':
-    print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5)) # True
-    print(binary_contains(["a", "d", "e", "f", "z"], "f")) # True
-    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila")) # False
+def dfs(initial, goal_test, successors):
+    frontier = Stack()
+    frontier.push(Node(initial, None))
+    explored = {initial}
+
+    while not frontier.empty:
+        current_node = frontier.pop()
+        current_state = current_node.state
+
+        if goal_test(current_state):
+            return current_node
+
+        for child in successors(current_state):
+            if child in explored:
+                continue
+
+            explored.add(child)
+            frontier.push(Node(child, current_node))
+
+    return None
+
+def node_to_path(node):
+    path = [node.state]
+
+    while node.parent is not None:
+        node = node.parent
+        path.append(node.state)
+
+    path.reverse()
+    return path

@@ -1,7 +1,7 @@
 import math
 import random
 from collections import namedtuple
-from generic_search import dfs, bfs, node_to_path, a_star, Node
+from generic_search import dfs, node_to_path, Node
 
 class Cell:
     EMPTY = ' '
@@ -53,3 +53,31 @@ class Maze:
                 locations.append(MazeLocation(ml.row, ml.column - 1))
 
         return locations
+
+    def mark(self, path):
+        for maze_location in path:
+            self._grid[maze_location.row][maze_location.column] = Cell.PATH
+
+        self._grid[self.start.row][self.start.column] = Cell.START
+        self._grid[self.goal.row][self.goal.column] = Cell.GOAL
+
+    def clear(self, path):
+        for maze_location in path:
+            self._grid[maze_location.row][maze_location.column] = Cell.EMPTY
+
+        self._grid[self.start.row][self.start.column] = Cell.START
+        self._grid[self.goal.row][self.goal.column] = Cell.GOAL
+
+if __name__ == '__main__':
+    m = Maze()
+    print(m)
+
+    solution_dfs = dfs(m.start, m.goal_test, m.successors)
+
+    if solution_dfs is None:
+        print('No solution found using depth-first search!')
+    else:
+        path_dfs = node_to_path(solution_dfs)
+        m.mark(path_dfs)
+        print(m)
+        m.clear(path_dfs)
