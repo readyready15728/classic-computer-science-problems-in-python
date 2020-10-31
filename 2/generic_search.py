@@ -50,8 +50,8 @@ class Node:
     def __lt__(self, other):
         return (self.cost + self.heuristic) < (other.cost + other.heuristic)
 
-def dfs(initial, goal_test, successors):
-    frontier = Stack()
+def search(initial, goal_test, successors, structure):
+    frontier = structure()
     frontier.push(Node(initial, None))
     explored = {initial}
 
@@ -70,6 +70,9 @@ def dfs(initial, goal_test, successors):
             frontier.push(Node(child, current_node))
 
     return None
+
+def dfs(initial, goal_test, successors):
+    return search(initial, goal_test, successors, Stack)
 
 def node_to_path(node):
     path = [node.state]
