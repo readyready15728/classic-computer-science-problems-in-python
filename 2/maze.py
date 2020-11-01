@@ -1,7 +1,7 @@
 import math
 import random
 from collections import namedtuple
-from generic_search import dfs, node_to_path, Node
+from generic_search import a_star, bfs, dfs, node_to_path, Node
 
 class Cell:
     EMPTY = ' '
@@ -68,9 +68,24 @@ class Maze:
         self._grid[self.start.row][self.start.column] = Cell.START
         self._grid[self.goal.row][self.goal.column] = Cell.GOAL
 
+def euclidean_distance(goal):
+    def distance(maze_location):
+        x_dist = maze_location.column - goal.column
+        y_dist = maze_location.row - goal.row
+        return (x_dist**2 + y_dist**2)**0.5
+    return distance
+
+def manhattan_distance(goal):
+    def distance(maze_location):
+        x_dist = abs(maze_location.column - goal.column)
+        y_dist = abs(maze_location.row - goal.row)
+        return x_dist + y_dist
+    return distance
+
 if __name__ == '__main__':
     m = Maze()
     print(m)
+    print()
 
     solution_dfs = dfs(m.start, m.goal_test, m.successors)
 
@@ -80,4 +95,26 @@ if __name__ == '__main__':
         path_dfs = node_to_path(solution_dfs)
         m.mark(path_dfs)
         print(m)
+        print()
         m.clear(path_dfs)
+
+    solution_bfs = bfs(m.start, m.goal_test, m.successors)
+
+    if solution_bfs is None:
+        print('No solution found using breadth-first search!')
+    else:
+        path_bfs = node_to_path(solution_bfs)
+        m.mark(path_bfs)
+        print(m)
+        print()
+        m.clear(path_bfs)
+
+    distance = manhattan_distance(m.goal)
+    solution_a_star = a_star(m.start, m.goal_test, m.successors, distance)
+
+    if solution_a_star is None:
+        print('No solution found using A* search!')
+    else:
+        path_a_star = node_to_path(solution_a_star)
+        m.mark(path_a_star)
+        print(m)
