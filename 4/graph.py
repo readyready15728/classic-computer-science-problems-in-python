@@ -1,4 +1,7 @@
+import sys
+sys.path.insert(0, '../2')
 from edge import Edge
+from generic_search import bfs, node_to_path, Node
 
 class Graph:
     def __init__(self, vertices):
