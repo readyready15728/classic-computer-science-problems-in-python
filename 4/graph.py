@@ -118,4 +118,11 @@ if __name__ == '__main__':
     city_graph.add_edge_by_vertices('New York', 'Philadelphia')
     city_graph.add_edge_by_vertices('Philadelphia', 'Washington')
 
-    print(city_graph)
+    bfs_result = bfs('Boston', lambda x: x == 'Miami', city_graph.neighbors_for_vertex)
+
+    if bfs_result is None:
+        print('No solution found using BFS!')
+    else:
+        path = node_to_path(bfs_result)
+        print('Path from Boston to Miami:')
+        print(path)
