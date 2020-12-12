@@ -8,7 +8,7 @@ if __name__ == '__main__':
     iris_classifications = []
     iris_species = []
 
-    with open('iris.csv', mode='r') as iris_file:
+    with open('iris.csv') as iris_file:
         irises = list(csv.reader(iris_file))
         shuffle(irises) # Get our lines of data in random order
 
