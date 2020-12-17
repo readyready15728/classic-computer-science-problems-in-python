@@ -1,6 +1,7 @@
-from board import Board, Move, Piece
+from enum import Enum
+from board import Board, Piece
 
-class TicTacToePiece(Piece):
+class TicTacToePiece(Piece, Enum):
     X = 'X'
     O = 'O'
     E = ' '
@@ -10,7 +11,7 @@ class TicTacToePiece(Piece):
         if self == self.__class__.X:
             return self.__class__.O
         elif self == self.__class__.O:
-            return self == self.__class__.X
+            return self.__class__.X
         else:
             return self.__class__.E
 
@@ -34,7 +35,7 @@ class TicTacToeBoard(Board):
 
     @property
     def legal_moves(self):
-        return [Move(i) for i in range(len(self.position)) if self.position[i] == TicTacToePiece.E]
+        return [i for i in range(len(self.position)) if self.position[i] == TicTacToePiece.E]
 
     @property
     def is_won(self):
