@@ -22,12 +22,12 @@ class Board(ABC):
 
     @property
     @abstractmethod
-    def is_win(self):
+    def is_won(self):
         ...
 
     @property
-    def is_draw(self):
-        return not self.is_win and len(self.legal_moves) == 0
+    def is_drawn(self):
+        return not self.is_won and len(self.legal_moves) == 0
 
     @abstractmethod
     def evaluate(self, player):
